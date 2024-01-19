@@ -1,0 +1,141 @@
+You are given a Singly Linked List of integers. Return true if it has a cycle, else return false.
+
+
+
+A cycle occurs when a node's next points back to a previous node in the list.
+
+
+
+Example:
+In the given linked list, there is a cycle, hence we return true.
+Sample Example 1
+
+Detailed explanation ( Input/output format, Notes, Images )
+Sample Input 1 :
+1 2 3 4 -1
+1
+
+
+Sample Output 1 :
+true
+
+
+Explanation of Sample Input 1:
+The linked list given in the input is as follows:
+Sample Input 1
+
+Sample Input 2 :
+1 2 3 4 -1
+0
+
+
+Sample Output 2 :
+true
+
+
+Explanation of Sample Input 2:
+The linked list given in the input is as follows:
+Sample Input 2
+
+Sample Input 3 :
+5 -1
+-1
+
+
+Sample Output 3 :
+false
+
+
+Explanation of Sample Input 3:
+ The linked list given in the input is as follows:
+Sample Input 3
+
+Expected Time Complexity:
+Try to solve this problem in O(n).
+
+
+Expected Space Complexity:
+Try to solve this problem in O(1).
+
+
+Constraints :
+0 <= n <= 10^6
+-1 <= pos < n
+-10^9 <= data <= 10^9 and data != -1
+
+Where 'n' is the size of the singly linked list, 'pos' represents the position (0-indexed) in the linked list where the tail connects to, and 'data' is the Integer data of the singly linked list.
+
+Time Limit: 1 sec
+
+//code....................
+
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+            int data;
+            Node *next;
+            Node()
+            {
+                this->data = 0;
+                next = NULL;
+            }
+            Node(int data)
+            {
+                this->data = data;
+                this->next = NULL;
+            }
+            Node(int data, Node* next)
+            {
+                this->data = data;
+                this->next = next;
+            }
+        };
+
+
+*****************************************************************/
+//#include<map>
+bool detectCycle(Node *head)
+{
+	//	Write your code here
+
+
+   // approch 1-using map
+    // if(head==NULL){
+    //     return false;
+    // }
+
+    // map<Node* ,bool>visited;
+    // Node* temp=head;
+    // while(temp!=NULL){
+    //     if(visited[temp]==true){
+    //         return 1;
+    //     }
+    //     visited[temp]=true;
+    //     temp=temp->next;
+    // }
+    // return 0;
+
+
+    //approch 2-using floyd cycle detection
+    if(head==NULL || head->next==NULL){
+        return false;
+    }
+    Node* slow=head;
+    Node* fast=head;
+    while(slow!=NULL && fast!=NULL){
+        fast=fast->next;
+        if(fast!=NULL){
+            fast=fast->next;
+        }
+        slow=slow->next;
+        if(slow==fast){
+            return 1;
+        }
+    }
+    return 0;
+    
+}
