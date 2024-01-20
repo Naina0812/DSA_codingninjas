@@ -1,0 +1,61 @@
+Given a string S, compute recursively a new string where identical chars that are adjacent in the original string are separated from each other by a "*".
+
+Detailed explanation ( Input/output format, Notes, Images )
+Constraints :
+0 <= |S| <= 1000
+where |S| represents length of string S.
+Sample Input 1 :
+hello
+Sample Output 1:
+hel*lo
+Sample Input 2 :
+aaaa
+Sample Output 2 :
+a*a*a*a
+
+//code.......................
+
+#include<bits/stdc++.h>
+// void pairStar(char input[]) {
+//     // Write your code here
+//   int n=strlen(input);
+//   char *temp=new char[10000];
+//   int k=0,count=0;
+//   for(int i=0;i<n-1;i++)
+//   {
+//       if(input[i]!=input[i+1]){
+//            temp[k]=input[i];
+//            k++;
+//       }else{
+//           temp[k]=input[i];
+//           k++;
+//           temp[k]='*';
+//           k++;
+//           temp[k]=input[i+1];
+//           k++,i++;
+//           count++;
+//       }
+//      // temp[k]='\0';
+//   }
+//   for(int i=0;i<n+count;i++){
+//       input[i]=temp[i];
+//   }
+//   delete [] temp;
+// }
+
+
+
+void pairStar(char input[]) {
+    int len = 0;
+    while (input[len])
+        len++;
+    if(len <= 1)
+        return;
+    pairStar(input+1);
+    if(input[0]==input[1]){
+        for(int i=2*len; i>=1; i--)
+            input[i+1]=input[i];
+        input[1]='*';
+    }
+
+}
