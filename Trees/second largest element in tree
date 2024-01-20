@@ -1,0 +1,49 @@
+void getMax(TreeNode<int>* root,int& max)
+{
+    // int max1=INT_MIN;
+    if(root==NULL)return;
+    if(root->data > max)
+        max=root-> data;
+    for(int i=0;i<root->children.size();i++){
+        
+            getMax(root->children[i],max);
+        
+    }
+    // return max1;
+}
+TreeNode<int>* getSecMax(TreeNode<int>* root,int max){
+    if(root==NULL){
+        return NULL;
+    }
+    //  int secMax=INT_MIN;
+    TreeNode<int>* secNode=NULL;
+    if(root->data!=max)secNode=root;
+    for(int i=0;i<root->children.size();i++)
+    {
+        TreeNode<int>* temp=getSecMax(root->children[i],max);
+        if(temp!=NULL)
+        {
+            if(secNode==NULL)
+                secNode=temp;
+            else
+            {
+                if(temp->data > secNode->data)
+                    secNode=temp;
+            }
+        }
+    }
+    
+    return secNode;
+}
+TreeNode<int>* getSecondLargestNode(TreeNode<int>* root) {
+    // Write your code here
+    if (root == NULL) {
+      return NULL;
+    }
+    int secMax=INT_MIN;
+    int max=-1;
+    getMax(root,max);
+    // cout << max;
+    TreeNode<int>* max2=getSecMax(root,max);
+    return max2;
+}

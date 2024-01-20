@@ -1,0 +1,66 @@
+Given the 'start' and the 'end'' positions of the array 'input'. Your task is to sort the elements between 'start' and 'end' using quick sort.
+
+
+
+Note :
+Make changes in the input array itself.
+Detailed explanation ( Input/output format, Notes, Images )
+Sample Input 1 :
+6 
+2 6 8 5 4 3
+Sample Output 1 :
+2 3 4 5 6 8
+Sample Input 2 :
+5
+1 2 3 5 7
+Sample Output 2 :
+1 2 3 5 7 
+Constraints :
+1 <= N <= 10^3
+0 <= input[i] <= 10^9
+
+//code........................
+
+
+int partitionArray(int input[], int start, int end) {
+	// Write your code here
+    int pivot = input[start];
+    int count = 0;
+    for (int i = start + 1; i <= end; i++) {
+        if (input[i] <= pivot)
+            count++;
+    }
+    // Giving pivot element its correct position
+    int pivotIndex = start + count;
+    swap(input[pivotIndex], input[start]);
+    // Sorting left and right parts of the pivot element
+    int i = start, j = end;
+    while (i < pivotIndex && j > pivotIndex) {
+        while (input[i] <= pivot) {
+            i++;
+        }
+        while (input[j] > pivot) {
+            j--;
+        }
+        if (i < pivotIndex && j > pivotIndex) {
+            swap(input[i++], input[j--]);
+        }
+    }
+    return pivotIndex;
+}
+void quickSort(int input[], int start, int end) {
+	/*
+		Don't write main().
+		Don't read input, it is passed as function argument.
+		Change in the given array itself.
+		Taking input and printing output is handled automatically.
+	*/
+	  if (start >= end)
+        return;
+    // partitioning the array
+    int p = partitionArray(input, start, end);
+    // Sorting the left part
+    quickSort(input, start, p - 1);
+    // Sorting the right part
+    quickSort(input, p + 1, end);
+}
