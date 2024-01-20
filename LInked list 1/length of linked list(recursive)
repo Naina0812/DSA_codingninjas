@@ -1,0 +1,26 @@
+Given a linked list, find and return the length of the given linked list recursively.
+
+Detailed explanation ( Input/output format, Notes, Images )
+ Constraints :
+1 <= t <= 20
+0 <= N <= 10^4
+Time Limit: 1 sec
+Sample Input 1:
+1 
+3 4 5 2 6 1 9 -1
+Sample Output 1:
+7
+
+//code.....................
+
+int length(Node *head) {
+    // Write your code here
+	Node* temp=head;
+	if(temp==NULL){
+		return 0;
+	}
+	temp=temp->next;
+	int cnt=1+ length(temp);
+	return cnt;
+
+}
