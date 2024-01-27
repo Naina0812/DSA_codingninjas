@@ -1,0 +1,66 @@
+Given a binary tree, write code to create a separate linked list for each level. You need to return the array which contains head of each level linked list.
+
+Detailed explanation ( Input/output format, Notes, Images )
+Constraints:
+Time Limit: 1 second
+Sample Input 1:
+5 6 10 2 3 -1 -1 -1 -1 -1 9 -1 -1
+Sample Output 1:
+5 
+6 10 
+2 3 
+9
+
+//code...................................
+
+#include<queue>
+vector<Node<int>*> constructLinkedListForEachLevel(BinaryTreeNode<int> *root) {
+    // Write your code here
+    //corner case
+    if(root == NULL) {
+        return {NULL};
+    }
+    
+    queue<BinaryTreeNode<int>*> pending;
+    
+    pending.push(root);
+    //Using NULL to identify the en
+    pending.push(NULL);
+    
+    vector<Node<int>*> result;
+    
+    Node<int> *head = NULL;
+    Node<int> *tail = NULL;
+    
+    while(pending.size()) {
+        BinaryTreeNode<int> *front = pending.front();
+        pending.pop();
+        if(front == NULL) {
+            if(pending.empty()) {
+                return result;
+            } else {
+                head = NULL;
+                tail = NULL;
+                pending.push(NULL);
+            }
+        } else {
+            Node<int> *temp = new Node<int>(front -> data);
+            if(head == NULL) {
+                head = temp;
+                tail = temp;
+                result.push_back(head);
+            } else {
+                tail -> next = temp;
+                tail = temp;
+            }
+            if(front -> left){
+                pending.push(front -> left);
+            }
+            
+            if(front -> right) {
+                pending.push(front -> right);
+            }
+        }
+    }
+    
+}
